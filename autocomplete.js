@@ -111,6 +111,9 @@ function AutoComplete(options) {
     self = set_opts(self,options,default_opts);
     self.target.addEventListener('keyup', function (e) { self.on.keyup.apply(self.target,[e]); } );
     document.body.appendChild(self.container);
-    self.container.style.display = 'none';
-    self.container.className = "autocomplete-container";
+    self.renderer.hideContainer();
+    if ( ! self.container.className ) {
+        self.container.className = '';
+    }
+    self.container.className += " autocomplete-container";
 }
