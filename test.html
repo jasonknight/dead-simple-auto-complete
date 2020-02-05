@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <script src="./autocomplete.js"></script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <input id="target" />
+                    <script type="text/javascript">
+                        (function () {
+                            let a = new AutoComplete({ 
+                                data_source: ['One Mississippi','Two Mississippi'],
+                                target: document.getElementById('target'), 
+                                debug: false,
+                            });
+                            console.log(a);
+                        })();
+                    </script>
+                </td>
+                <td>
+                    <input id="fancytarget" />
+                    <div id="fancyautocomplete" class="fancy-autocomplete">
+                        <div class="fancy-header">
+
+                        </div>
+                        <ul class="fancy-results-list">
+
+                        </ul>
+                    </div>
+                    <script type="text/javascript">
+                        (function () {
+                            let a = new AutoComplete({ 
+                                data_source: ['Florida','Georgia'],
+                                target: document.getElementById('fancytarget'), 
+                                container: document.getElementById('fancyautocomplete'),
+                                debug: true,
+                                renderer: {
+                                    addRow: function (c,r) {
+                                        for ( let i = 0; i < document.getElementById(c.id).childNodes.length; i++) {
+                                            let child = c.childNodes[i];
+                                            if ( child.className == "fancy-results-list" ) {
+                                                let el = document.createElement('LI');
+                                                el.innerHTML = r.innerHTML;
+                                                el.addEventListener('click',function (e) {
+                                                    a.on.rowclick.apply(el,[e]);
+                                                });
+                                                child.appendChild(el);
+                                            }
+                                        }
+                                    },
+                                    clearRows: function (c) {
+                                        for ( let i = 0; i < document.getElementById(c.id).childNodes.length; i++) {
+                                            let child = c.childNodes[i];
+                                            if ( child.className == "fancy-results-list" ) {
+                                                child.innerHTML = '';
+                                            }
+                                        }
+                                    },
+                                },
+                            });
+                            console.log(a);
+                        })();
+                    </script>
+                </td>
+            </tr>
+        </table>
+<style type="text/css">
+    div.autocomplete-container {
+        border: 1px solid red;
+    }
+</style>
+    </body>
+</html>
