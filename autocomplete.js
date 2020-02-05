@@ -31,13 +31,15 @@ function AutoComplete(options) {
                 c.appendChild(r);
             },
             clearRows: function (c) {
-                c.innderHTML = '';
+                c.innerHTML = '';
             },
             showContainer: function () {
                 self.container.style.display = 'block';
                 self.container.style.position = 'absolute';
-                self.container.style.left = self.target.getBoundingClientRect().left;
-                self.container.style.top = self.target.getBoundingClientRect().bottom;
+                let box = self.target.getBoundingClientRect();
+                self.log("Box",box);
+                self.container.style.left = box.left + 'px';
+                self.container.style.top = box.bottom + 'px';
                 self.filters.containerOnShow.apply(self,[]);
             },
             hideContainer: function () {
